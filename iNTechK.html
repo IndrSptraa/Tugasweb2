@@ -4,446 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>.𝙞𝙉𝘿</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <style>
-        
-        /* styles.css */
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #CCD0CF; /* Warna latar belakang */
-            color: #253745; /* Warna teks utama */
-            display: flex;
-            overflow: hidden;
-            flex-direction: column; /* Allow body to stack header and content */
-        }
-
-        header {
-            width: 100%;
-            background-color: #2a333a; /* Warna latar belakang header */
-            color: #CCD0CF; /* Warna teks header */
-            text-align: left;
-            padding: 15px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000; /* Ensure header stays on top */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .header-title {
-            margin: 0;
-            font-size: 25px;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: rgb(127, 135, 135, 0.6); /* Transparansi latar belakang sidebar */
-            color: #CCD0CF; /* Warna teks sidebar */
-            height: calc(100vh - 60px); /* Adjust height based on header height */
-            position: fixed;
-            top: 60px; /* Adjust based on header height */
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: width 0.3s, opacity 0.3s;
-            z-index: 1000; /* Ensure it stays on top */
-            backdrop-filter: blur(5px); /* Apply blur effect */
-        }
-
-        .sidebar.minimized {
-            width: 40px;
-            overflow: hidden;
-        }
-
-        .toggle-btn {
-            color: #17191e; /* Warna tombol toggle */
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1100; /* Ensure the button stays on top */
-            transition: transform 0.3s;
-        }
-
-        .toggle-btn.rotate {
-            transform: rotate(90deg);
-        }
-
-        .logo-container h1 {
-            margin: 0;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .nav-link {
-            color: #CCD0CF; /* Warna teks link */
-            text-decoration: none;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 25px;
-            background-color: rgba(6, 20, 27, 0.7); /* Transparansi latar belakang link */
-            transition: background-color 0.3s, transform 0.3s;
-            text-align: left;
-            display: block;
-        }
-
-        .nav-link:hover {
-            background-color: rgba(17, 33, 45, 0.9); /* Transparansi latar belakang link saat hover */
-            transform: scale(1.05);
-        }
-
-        main {
-            flex-grow: 1;
-            padding: 20px;
-            margin-left: calc(75px + 1cm); /* Set margin-left sama dengan lebar sidebar */
-            margin-top: 60px; /* Space for header */
-            transition: margin-left 0.3s;
-            overflow: hidden;
-            box-sizing: border-box; /* Ensure padding and margin don't affect size */
-        }
-
-        .sidebar.minimized ~ main {
-            margin-left: calc(75px + 1cm); /* Tidak perlu mengubah ini karena sudah sama dengan margin default */
-        }
-
-        section {
-            margin-bottom: 30px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        h2 {
-            color: #11212D; /* Warna judul section */
-        }
-
-        p {
-            background-color: #9BABAB; /* Warna latar belakang paragraf */
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-
-        /* Carousel container */
-        .carousel {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Center carousel horizontally */
-            width: 100%;
-            overflow: hidden;
-            margin: 0 auto; /* Center the carousel within its container */
-            max-width: 900px; /* Maximum width of carousel */
-        }
-
-        /* Images container */
-        .carousel-images {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        /* Each image in the carousel */
-        .carousel-images figure {
-            margin: 0;
-            position: relative;
-            text-align: center; /* Center captions */
-        }
-
-        .carousel-images img {
-            max-width: 100%; /* Fit the image within the container */
-            height: auto; /* Maintain aspect ratio */
-            flex-shrink: 0;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            opacity: 0.5; /* Default opacity for non-active images */
-            transform: scale(0.8); /* Default size for non-active images */
-        }
-
-        /* Style for the active image */
-        .carousel-images img.active {
-            opacity: 1;
-            transform: scale(1.2); /* Enlarged size for the active image */
-        }
-
-        /* Caption styling */
-        .carousel-images figcaption {
-            margin-top: 10px;
-            color: #4A5C6A; /* Warna caption gambar */
-            font-size: 14px;
-        }
-
-        /* Navigation buttons */
-        .carousel-btn {
-            color: #9BABAB; /* Warna tombol navigasi carousel */
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 10px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1;
-        }
-
-        .carousel-btn.prev {
-            left: 10px;
-        }
-
-        .carousel-btn.next {
-            right: 10px;
-        }
-
-        .sidebar.minimized .sidebar-nav {
-            display: none; /* Menyembunyikan menu navigasi saat sidebar minimized */
-        }
-
-        .sidebar .sidebar-nav {
-            display: flex; /* Menampilkan menu navigasi saat sidebar tidak minimized */
-        }
-        /* Menyembunyikan logo-container saat sidebar minimized */
-        .sidebar.minimized .logo-container {
-        display: none;
-        }
-        /* Konten */
- /* Additional styles */
- .content {
-            background-color: #E4E8E6; /* Warna latar belakang konten */
-            margin-bottom: 20px; /* Jarak antar konten */
-            padding: 20px; /* Padding dalam konten */
-            border-radius: 8px; /* Sudut melengkung */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */
-        }
-
-        .content-title {
-            margin: 0;
-            font-size: 20px;
-            color: #11212D; /* Warna judul */
-            margin-bottom: 10px;
-        }
-
-        .content-text {
-            background-color: #f3f8f8; /* Warna latar belakang teks */
-            padding: 10px;
-            border-radius: 5px;
-            margin: 0; /* Menghilangkan margin untuk menyentuh bagian bawah gambar */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */ 
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .contact-form input, .contact-form textarea {
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        .contact-form button {
-            padding: 10px;
-            background-color: #2a333a;
-            color: #CCD0CF;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .contact-form button:hover {
-            background-color: #1e2a31;
-        }
-
-        .section-content {
-            background-color: #E4E8E6; /* Warna latar belakang konten */
-            margin-bottom: 20px; /* Jarak antar konten */
-            padding: 20px; /* Padding dalam konten */
-            border-radius: 8px; /* Sudut melengkung */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */
-        }
-
-        .section-content h2 {
-            color: #11212D; /* Warna judul */
-        }
-.content-image {
-    text-align: center; /* Posisi gambar di tengah */
-    margin-bottom: 10px; /* Jarak bawah gambar */
-}
-
-.content-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px; /* Sudut melengkung gambar */
-}
-
-.content-text {
-    background-color: #9BABAB; /* Warna latar belakang teks */
-    padding: 10px;
-    border-radius: 5px;
-    margin: 0; /* Menghilangkan margin untuk menyentuh bagian bawah gambar */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */ 
-}
-
-/* Custom scrollbar styling */
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Hide scrollbar when not scrolling */
-body {
-    overflow: hidden; /* Hide default scrollbar */
-    position: relative;
-}
-
-.scrollable {
-    overflow-y: scroll; /* Enable scroll */
-    height: 100vh; /* Full height to ensure scroll is functional */
-    padding-right: 15px; /* Ensure content is not hidden behind scrollbar */
-}
-.content {
-    background-color: #E4E8E6; /* Warna latar belakang konten */
-    margin-bottom: 20px; /* Jarak antar konten */
-    padding: 20px; /* Padding dalam konten */
-    border-radius: 8px; /* Sudut melengkung */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */
-    transition: transform 0.3s ease; /* Transisi untuk efek hover */
-}
-
-.content:hover {
-    transform: translateY(-10px); /* Bergeser ke atas saat hover */
-}
-/* CSS untuk perubahan warna latar belakang teks saat hover */
-.content-text {
-    background-color: #9BABAB; /* Warna latar belakang teks default */
-    padding: 10px;
-    border-radius: 5px;
-    margin: 0; /* Menghilangkan margin untuk menyentuh bagian bawah gambar */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */ 
-    transition: background-color 0.3s ease; /* Transisi untuk perubahan warna */
-}
-
-.content-text:hover {
-    background-color: #BDC5C5; /* Warna latar belakang teks saat hover */
-}
-.section-nav {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.section-nav .nav-link {
-    color: #CCD0CF; /* Warna teks link */
-    text-decoration: none;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 25px;
-    background-color: rgba(6, 20, 27, 0.7); /* Transparansi latar belakang link */
-    transition: background-color 0.3s, transform 0.3s;
-    text-align: left;
-    display: block;
-}
-
-.section-nav .nav-link:hover {
-    background-color: rgba(17, 33, 45, 0.9); /* Transparansi latar belakang link saat hover */
-    transform: scale(1.05);
-}
-.social-icons {
-    margin-top:auto; /* Pushes icons to the bottom */
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center; /* Center icons horizontally */
-    padding: 10px;
-}
-
-.social-icon {
-    color: #CCD0CF; /* Color of the icons */
-    font-size: 24px; /* Size of the icons */
-    margin: 0 10px; /* Space between icons */
-    transition: color 0.3s;
-}
-
-.social-icon:hover {
-    color: #ffffff; /* Color when hovering over icons */
-}
-/* Hide social icons when sidebar is minimized */
-.sidebar.minimized .social-icons {
-    display: none;
-}
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  display: none;
-}
-
-.sidebar2 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100%;
-  background-color: rgb(127, 135, 135, 0.6);
-  color: #CCD0CF;
-  z-index: 1000;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-.sidebar2.visible {
-  transform: translateX(0);
-}
-
-.sidebar2 .nav-link {
-  margin: 5px 0;
-}
-
-.sidebar2 .sidebar-nav {
-  padding: 20px;
-}
-
-
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
@@ -467,11 +28,11 @@ body {
         </nav>
         
         <div class="social-icons">
-            <a href="https://www.youtube.com/" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/yourprofile" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@yourprofile" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
-            <a href="https://x.com/yourprofile" target="_blank" class="social-icon"><i class="fab fa-x"></i></a>
-            <a href="https://www.facebook.com/yourprofile" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/" target="_blank" class="social-icon"><i class="fab fa-youtube"><img src="Ft/yt.png"></i></a>
+            <a href="https://www.instagram.com/nochhndrr?igsh=bWdzN3djOGhwZDY2" target="_blank" class="social-icon"><i class="fab fa-instagram"><img src="Ft/IG.png"></i></a>
+            <a href="https://www.tiktok.com/@chahae_in7?_t=8pP0aHSXWvh&_r=1" target="_blank" class="social-icon"><i class="fab fa-tiktok"><img src="Ft/tktk.png"></i></a>
+            <a href="https://x.com/" target="_blank" class="social-icon"><i class="fab fa-x"><img src="Ft/x.png"></i></a>
+            <a href="https://www.facebook.com/share/KWBD4DKer5jQ31rf/?mibextid=qi2Omg" target="_blank" class="social-icon"><i class="fab fa-facebook-f"><img src="ft/tktk.png"></i></a>
         </div>
         
         
@@ -485,47 +46,50 @@ body {
             
             <!-- Konten 1 -->
             <div class="content">
-                <h3 class="content-title">Judul Konten 1</h3>
+                <h3 class="content-title">Google Pixel 9</h3>
                 <div class="content-image">
-                    <img src="path/to/image1.jpg" alt="Gambar Konten 1">
+                    <img src="https://img.baba-blog.com/2024/08/pixle-9-pro-vs-xl.webp?x-oss-process=style%2Ffull" alt="Gambar Konten 1">
                 </div>
-                <p class="content-text">Isi dari Konten 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                
+                <p class="content-text">Untuk pertama kalinya, Google menghadirkan empat ponsel Pixel baru pada tahun 2024, menjadikan generasi kesembilan ini sebagai perluasan paling penting dari jajaran produknya hingga saat ini. Kuartet pendatang baru Android — Pixel 9 , Pixel 9 Pro , Pixel 9 Pro XL , dan Pixel 9 Pro Fold...</p>
+            </a>
             </div>
         
             <!-- Konten 2 -->
             <div class="content">
-                <h3 class="content-title">Judul Konten 2</h3>
+                <h3 class="content-title">Samsung S10</h3>
                 <div class="content-image">
-                    <img src="path/to/image2.jpg" alt="Gambar Konten 2">
+                    <img src="https://images.samsung.com/is/image/samsung/assets/id/explore/entertainment/samsung-s10-series-specs-features-revisit/Galaxy-S10-Ceramic-White_1440x640.jpg?$1440_N_JPG$" alt="Gambar Konten 2">
                 </div>
-                <p class="content-text">Isi dari Konten 2. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.</p>
+                <p class="content-text">Samsung S10, yang diluncurkan pada tahun 2019, sempat menjadi salah satu primadona smartphone di masanya. Dengan desain yang menawan, layar yang jernih, dan performa yang tangguh, S10 menarik minat banyak pengguna.  Namun, tiga tahun telah berlalu sejak peluncurannya. Di tahun 2024 ini, pertanyaan yang muncul adalah: apakah Samsung S10 masih Layakkah Dibeli di Tahun 2024?...</p>
             </div>
         
             <!-- Konten 3 -->
             <div class="content">
-                <h3 class="content-title">Judul Konten 3</h3>
+                <h3 class="content-title">all new nma-x turbo 2024</h3>
                 <div class="content-image">
-                    <img src="path/to/image3.jpg" alt="Gambar Konten 3">
+                    <img src="https://www.inilah.com/_next/image?url=https%3A%2F%2Fc.inilah.com%2Freborn%2F2024%2F06%2Fyamaha_NMAX_turbo_hitam_1_973e9a18a0.jpg&w=1080&q=75" alt="Gambar Konten 3">
                 </div>
-                <p class="content-text">Isi dari Konten 3. Curabitur pretium tincidunt lacus.</p>
+                <p class="content-text">Inovasi terus dilakukan Yamaha Indonesia Motor Mfg. (YIMM). Setelah dinanti dan bincang khalayak. Mereka merilis skutik premium di jajaran Maxi Yamaha, yaitu Nmax “Turbo” 2024. Peluncuran perdana secara global ini berlangsung di Kemayoran, Jakarta. Perusahaan sengaja memberi tanda petik di kata Turbo, karena memang sebatas istilah untuk menambah power. Bukan alat induksi angin bertekanan seperti di dalam mesin mobil... </p>
             </div>
         
             <!-- Konten 4 -->
             <div class="content">
-                <h3 class="content-title">Judul Konten 4</h3>
+                <h3 class="content-title">all new zx25rr</h3>
                 <div class="content-image">
-                    <img src="path/to/image4.jpg" alt="Gambar Konten 4">
+                    <img src="https://content2.kawasaki.com/ContentStorage/KMI/ProductTrimGroup/2046/17d6cfbd-86f5-4d29-981f-8f772e1f94ab.jpg?w=750" alt="Gambar Konten 4">
                 </div>
-                <p class="content-text">Isi dari Konten 4. Nulla lectus ante, convallis ut cursus eu, suscipit id erat.</p>
+                <p class="content-text">Kawasaki ZX-25RR All New adalah sepeda motor sport dengan mesin 250cc inline-4 yang memberikan performa tinggi dan suara yang mengesankan. Dengan desain aerodinamis, teknologi terbaru, dan fitur canggih, motor ini dirancang untuk memberikan pengalaman berkendara yang mendebarkan...</p>
             </div>
         
             <!-- Konten 5 -->
             <div class="content">
-                <h3 class="content-title">Judul Konten 5</h3>
+                <h3 class="content-title">Stylo 160</h3>
                 <div class="content-image">
-                    <img src="path/to/image5.jpg" alt="Gambar Konten 5">
+                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzvE5qZnxMIPsQ3VNxXR6AlKRImEiaa9Ret8-u1Ze8BIn2EhY6" alt="Gambar Konten 5">
                 </div>
-                <p class="content-text">Isi dari Konten 5. Proin eget tortor risus.</p>
+                <p class="content-text">Kehadiran Honda Stylo 160 memberikan alternatif baru bagi konsumen Indonesia yang menggemari skuter matik bergaya retro. Motor baru ini akan bersaing dengan model-model yang telah ada lebih dulu, seperti Yamaha Grand Filano dan produk-produk entry level Vespa. Baca artikel detikoto, "Review Honda Stylo 160: Apa Saja Kelebihannya?"</p>
             </div>
         </section>
         
@@ -580,6 +144,7 @@ body {
     </div>
     
         </section>
+        
 
         <!-- Section Sport -->
         <section id="sport" class="hidden">
@@ -642,128 +207,6 @@ body {
     </main>
    
                 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const toggleBtn = document.getElementById('toggle-btn');
-    const sidebar = document.getElementById('sidebar');
-    const links = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('main section');
-
-    toggleBtn.addEventListener('click', function() {
-        sidebar.classList.toggle('minimized');
-        toggleBtn.classList.toggle('rotate');
-
-        if (sidebar.classList.contains('minimized')) {
-            toggleBtn.innerHTML = '=';
-        } else {
-            toggleBtn.innerHTML = 'x';
-        }
-
-        // Hide/show social icons based on sidebar state
-        const socialIcons = sidebar.querySelector('.social-icons');
-        if (sidebar.classList.contains('minimized')) {
-            socialIcons.style.display = 'none';
-        } else {
-            socialIcons.style.display = 'flex';
-        }
-    });
-
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            sections.forEach(section => {
-                section.classList.add('hidden');
-            });
-            const targetSection = document.querySelector(this.getAttribute('href'));
-            targetSection.classList.remove('hidden');
-
-            // Minimize the sidebar when a link is clicked
-            if (!sidebar.classList.contains('minimized')) {
-                sidebar.classList.add('minimized');
-                toggleBtn.classList.add('rotate');
-                toggleBtn.innerHTML = '=';
-                socialIcons.style.display = 'none';
-            }
-        });
-    });
-
-    document.querySelector('#home').classList.remove('hidden');
-
-    // Carousel functionality
-    const carousels = document.querySelectorAll('.carousel');
-
-    carousels.forEach(carousel => {
-        const images = carousel.querySelector('.carousel-images');
-        const prevBtn = carousel.querySelector('.carousel-btn.prev');
-        const nextBtn = carousel.querySelector('.carousel-btn.next');
-        const imageCount = images.children.length;
-        let index = 1; // Start from the second image
-
-        function updateCarousel() {
-            const imageWidth = images.clientWidth / imageCount; // Adjust with number of images
-            images.style.transform = `translateX(${-index * imageWidth}px)`;
-
-            // Update active image
-            images.querySelectorAll('img').forEach((img, i) => {
-                if (i === index) {
-                    img.classList.add('active');
-                } else {
-                    img.classList.remove('active');
-                }
-            });
-        }
-
-        prevBtn.addEventListener('click', function() {
-            index = (index > 0) ? index - 1 : imageCount - 1;
-            updateCarousel();
-        });
-
-        nextBtn.addEventListener('click', function() {
-            index = (index < imageCount - 1) ? index + 1 : 0;
-            updateCarousel();
-        });
-
-        // Initialize with the second image active
-        updateCarousel();
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const scrollableElement = document.querySelector('.scrollable');
-
-        let timer;
-        scrollableElement.addEventListener('scroll', function() {
-            clearTimeout(timer);
-            scrollableElement.style.scrollbarWidth = 'auto'; // Show scrollbar
-            timer = setTimeout(function() {
-                scrollableElement.style.scrollbarWidth = 'none'; // Hide scrollbar
-            }, 3500); // Hide scrollbar after 3.5 seconds of inactivity
-        });
-
-        // Initialize scrollbar visibility
-        scrollableElement.style.scrollbarWidth = 'auto'; // Ensure scrollbar is visible on load
-    });
-});
-document.querySelector('.nav-link[href="#about"]').addEventListener('click', function () {
-  document.querySelector('.overlay').classList.add('visible');
-  document.querySelector('#sidebar2').classList.add('visible');
-});
-
-document.querySelectorAll('#sidebar2 .nav-link').forEach(link => {
-  link.addEventListener('click', function () {
-    document.querySelector('.overlay').classList.remove('visible');
-    document.querySelector('#sidebar2').classList.remove('visible');
-  });
-});
-
-document.querySelector('#toggle-btn2').addEventListener('click', function () {
-  document.querySelector('#sidebar2').classList.toggle('visible');
-});
-
-document.querySelector('.overlay').addEventListener('click', function () {
-  document.querySelector('#sidebar2').classList.remove('visible');
-  document.querySelector('.overlay').classList.remove('visible');
-});
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
