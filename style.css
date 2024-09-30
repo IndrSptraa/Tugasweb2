@@ -41,7 +41,7 @@ body {
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
             transition: width 0.3s, opacity 0.3s;
             z-index: 1000; /* Ensure it stays on top */
-            backdrop-filter: blur(5px); /* Apply blur effect */
+            backdrop-filter: blur(3px); /* Apply blur effect */
         }
 
         .sidebar.minimized {
@@ -95,6 +95,20 @@ body {
             background-color: rgba(17, 33, 45, 0.9); /* Transparansi latar belakang link saat hover */
             transform: scale(1.05);
         }
+        
+        .link-navigasi {
+            color: #0e1010; /* Warna teks link */
+            text-decoration: none;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 25px;
+            
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: left;
+            display: block;
+        }       
+
+
 
         main {
             flex-grow: 1;
@@ -126,6 +140,7 @@ body {
             background-color: #9BABAB; /* Warna latar belakang paragraf */
             padding: 10px;
             border-radius: 5px;
+
         }
 
         img {
@@ -224,6 +239,14 @@ body {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */
         }
 
+        .content2 {
+            background-color: #E4E8E6; /* Warna latar belakang konten */
+            margin-bottom: 20px; /* Jarak antar konten */
+            padding: 20px; /* Padding dalam konten */
+            border-radius: 8px; /* Sudut melengkung */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */
+        }
+
         .content-title {
             margin: 0;
             font-size: 20px;
@@ -233,6 +256,14 @@ body {
 
         .content-text {
             background-color: #f3f8f8; /* Warna latar belakang teks */
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0; /* Menghilangkan margin untuk menyentuh bagian bawah gambar */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */ 
+        }
+
+        .content2-text {
+            background-color: #ffffff; /* Warna latar belakang teks */
             padding: 10px;
             border-radius: 5px;
             margin: 0; /* Menghilangkan margin untuk menyentuh bagian bawah gambar */
@@ -288,6 +319,19 @@ body {
     object-fit:cover;
 }
 
+.content2-image {
+    text-align: left; /* Posisi gambar di tengah */
+    margin-bottom: 0px; /* Jarak bawah gambar */
+}
+
+.content2-image img {
+    max-width: 60%;
+    height: 200px;
+    width: 83%;
+    border-radius: 8px; /* Sudut melengkung gambar */
+    object-fit:cover;
+}
+
 .content-text {
     background-color: #9BABAB; /* Warna latar belakang teks */
     padding: 10px;
@@ -328,6 +372,15 @@ body {
 .content {
     background-color: #E4E8E6; /* Warna latar belakang konten */
     margin-bottom: 20px; /* Jarak antar konten */
+    padding: 5px; /* Padding dalam konten */
+    border-radius: 10px; /* Sudut melengkung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */
+    transition: transform 0.3s ease; /* Transisi untuk efek hover */
+}
+
+.content2 {
+    background-color: #E4E8E6; /* Warna latar belakang konten */
+    margin-bottom: 20px; /* Jarak antar konten */
     padding: 20px; /* Padding dalam konten */
     border-radius: 10px; /* Sudut melengkung */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */
@@ -337,6 +390,8 @@ body {
 .content:hover {
     transform: translateY(-10px); /* Bergeser ke atas saat hover */
 }
+
+
 /* CSS untuk perubahan warna latar belakang teks saat hover */
 .content-text {
     background-color: #9BABAB; /* Warna latar belakang teks default */
@@ -347,9 +402,18 @@ body {
     transition: background-color 0.3s ease; /* Transisi untuk perubahan warna */
 }
 
+.content2-text {
+    background-color: #E4E8E6; /* Warna latar belakang teks default */
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px; /* Menghilangkan margin untuk menyentuh bagian bawah gambar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan latar belakang */ 
+}
+
 .content-text:hover {
     background-color: #BDC5C5; /* Warna latar belakang teks saat hover */
 }
+
 .section-nav {
     margin-top: 20px;
     display: flex;
@@ -369,6 +433,23 @@ body {
 }
 
 .section-nav .nav-link:hover {
+    background-color: rgba(17, 33, 45, 0.9); /* Transparansi latar belakang link saat hover */
+    transform: scale(1.05);
+}
+
+.section-nav .link-navigasi {
+    color: #CCD0CF; /* Warna teks link */
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 25px;
+    background-color: rgba(6, 20, 27, 0.7); /* Transparansi latar belakang link */
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: left;
+    display: block;
+}
+
+.section-nav .link-navigasi:hover {
     background-color: rgba(17, 33, 45, 0.9); /* Transparansi latar belakang link saat hover */
     transform: scale(1.05);
 }
@@ -427,8 +508,24 @@ body {
   margin: 5px 0;
 }
 
+.sidebar2 .nav-link2 {
+    margin: 5px 0;
+  }
+  
+
 .sidebar2 .sidebar-nav {
   padding: 20px;
 }
 
+.social-icon {
+    color: #CCD0CF; /* Color of the icons */
+    font-size: 24px; /* Size of the icons */
+    margin: 0 10px; /* Space between icons */
+    transition: transform 0.3s, color 0.3s; /* Add transition for smooth effect */
+}
+
+.social-icon:hover {
+    color: #ffffff; /* Color when hovering over icons */
+    transform: scale(1.2); /* Enlarge icon on hover */
+}
 
